@@ -1,0 +1,6 @@
+22:05:21 **** Incremental Build of configuration Debug for project board_perso_stm32_stdperiph_lib ****
+make all 
+make: Nothing to be done for `all'.
+
+22:05:22 Build Finished (took 511ms)
+

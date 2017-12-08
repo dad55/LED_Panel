@@ -1,0 +1,204 @@
+/**
+ ******************************************************************************
+ * @file    main.c
+ * @author  Ac6
+ * @version V1.0
+ * @date    01-December-2013
+ * @brief   Default main function.
+ ******************************************************************************
+ */
+
+
+#include "stm32f4xx.h"
+#include <stdlib.h>
+
+#define RD1 GPIOF, GPIO_Pin_1
+#define GD1 GPIOF, GPIO_Pin_2
+#define BD1 GPIOF, GPIO_Pin_3
+#define RD2 GPIOF, GPIO_Pin_4
+#define GD2 GPIOF, GPIO_Pin_5
+#define BD2 GPIOF, GPIO_Pin_6
+#define A   GPIOF, GPIO_Pin_7
+#define B   GPIOF, GPIO_Pin_8
+#define C   GPIOF, GPIO_Pin_9
+#define CLK GPIOF, GPIO_Pin_10
+#define LAT GPIOC, GPIO_Pin_1
+#define OEB GPIOC, GPIO_Pin_0
+
+#define wait for(int cpt=0;cpt<100;cpt++);
+
+void change_format_image(uint8_t **new_struct_couleur,uint8_t **couleur);
+
+void TIM2_IRQHandler()
+{
+    if (TIM_GetITStatus(TIM2, TIM_IT_Update) != RESET)
+    {
+        TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
+        GPIO_ToggleBits(GPIOC, GPIO_Pin_0);
+    }
+}
+
+int main(void)
+{
+	/*uint64_t enfoiros[8] =
+	{0b0000000000000000000000000000000000000,
+			0b0111101001011110111101011100111101111,
+			0b0100001101010000100101010010100101000,
+			0b0100001101010000100101010100100101000,
+			0b0111101011011100100101011000100101111,
+			0b0100001011010000100101010100100100001,
+			0b0111101001010000111101010010111101111,
+			0b0000000000000000000000000000000000000};*/
+
+#include "../../MATLAB/image_tableau.txt"
+
+
+
+
+
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+
+
+	GPIO_InitTypeDef gpioInitStruct;
+	gpioInitStruct.GPIO_Pin = GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10;
+	gpioInitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	gpioInitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	gpioInitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_Init(GPIOF, &gpioInitStruct);
+
+	gpioInitStruct.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
+	GPIO_Init(GPIOC, &gpioInitStruct);
+
+	GPIO_ResetBits (CLK);
+
+	int i,j,k;
+	uint8_t **new_struct_couleur_R,**new_struct_couleur_G,**new_struct_couleur_B,**test_R,**test_G,**test_B;
+	new_struct_couleur_R = malloc(sizeof(uint8_t*)*8);
+	for(i = 0; i < 64; i++) new_struct_couleur_R[i]=malloc(sizeof(uint8_t)*64);
+
+	new_struct_couleur_G = malloc(sizeof(uint8_t*)*8);
+	for(i = 0; i < 64; i++) new_struct_couleur_G[i]=malloc(sizeof(uint8_t)*64);
+
+	new_struct_couleur_B = malloc(sizeof(uint8_t*)*8);
+	for(i = 0; i < 64; i++) new_struct_couleur_B[i]=malloc(sizeof(uint8_t)*64);
+
+
+	test_R = malloc(sizeof(uint8_t*)*16);
+	for(i = 0; i < 64; i++) test_R[i]=malloc(sizeof(uint8_t)*32);
+
+	test_G = malloc(sizeof(uint8_t*)*16);
+	for(i = 0; i < 64; i++) test_G[i]=malloc(sizeof(uint8_t)*32);
+
+	test_B = malloc(sizeof(uint8_t*)*16);
+	for(i = 0; i < 64; i++) test_B[i]=malloc(sizeof(uint8_t)*32);
+
+	//	uint8_t temp,temp2;
+
+	for(j=0;j<16;j++)
+	{
+		for(k=0;k<32;k++)
+		{
+			test_R[j][k] = couleur_R[j][k];
+			test_G[j][k] = couleur_G[j][k];
+			test_B[j][k] = couleur_B[j][k];
+		}
+	}
+	change_format_image((uint8_t **)new_struct_couleur_R,(uint8_t **)test_R);
+	change_format_image((uint8_t **)new_struct_couleur_G,(uint8_t **)test_G);
+	change_format_image((uint8_t **)new_struct_couleur_B,(uint8_t **)test_B);
+
+int inutile;
+	int cnt=0;
+	unsigned int rep_ligne=0;
+	//for(;;);
+	do{
+
+		GPIOC->BSRRH = GPIO_Pin_0; //GPIO_ResetBits(OEB);
+		for(int cpt=0; cpt < 64 ; cpt++){
+			if(new_struct_couleur_R[cnt][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_1;
+			else GPIOF->BSRRH = GPIO_Pin_1;
+			if(new_struct_couleur_R[cnt+4][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_4;
+			else GPIOF->BSRRH = GPIO_Pin_4;
+			if(new_struct_couleur_G[cnt][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_2;
+			else GPIOF->BSRRH = GPIO_Pin_2;
+			if(new_struct_couleur_G[cnt+4][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_5;
+			else GPIOF->BSRRH = GPIO_Pin_5;
+			if(new_struct_couleur_B[cnt][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_3;
+			else GPIOF->BSRRH = GPIO_Pin_3;
+			if(new_struct_couleur_B[cnt+4][cpt]>rep_ligne<<5) GPIOF->BSRRL = GPIO_Pin_6;
+			else GPIOF->BSRRH = GPIO_Pin_6;
+
+
+			GPIOF->BSRRL = GPIO_Pin_10;// ;GPIO_SetBits(CLK);
+			GPIOF->BSRRH = GPIO_Pin_10; //;GPIO_ResetBits(CLK);
+		}
+		GPIOC->BSRRL = GPIO_Pin_1; //;GPIO_SetBits(LAT);
+		GPIOC->BSRRH = GPIO_Pin_1; //;GPIO_ResetBits(LAT);
+		GPIOC->BSRRL = GPIO_Pin_0; //GPIO_SetBits(OEB);
+		rep_ligne++;
+		if(rep_ligne>8){
+			switch(cnt){
+			case 0 : GPIOF->BSRRL = GPIO_Pin_7 ;/*GPIO_SetBits(A);*/ break;
+			case 1 : GPIOF->BSRRH = GPIO_Pin_7; /*GPIO_ResetBits(A) ;*/ GPIOF->BSRRL = GPIO_Pin_8; /*GPIO_SetBits(B);*/ break;
+			case 2 : GPIOF->BSRRL = GPIO_Pin_7 ;/*GPIO_SetBits(A); */break;
+			case 3 : GPIOF->BSRRH = GPIO_Pin_7 ;/*GPIO_ResetBits(A) ;*/ GPIOF->BSRRH = GPIO_Pin_8 ;/*GPIO_ResetBits(B);*/ break;
+			default : cnt=0;
+			}
+			cnt = (cnt+1)%4;
+			rep_ligne=0;
+			GPIOF->BSRRL = GPIO_Pin_1;
+			GPIOF->BSRRL = GPIO_Pin_2;
+			GPIOF->BSRRL = GPIO_Pin_3;
+			GPIOF->BSRRL = GPIO_Pin_4;
+			GPIOF->BSRRL = GPIO_Pin_5;
+			GPIOF->BSRRL = GPIO_Pin_6;
+		}
+
+	}while(1);
+}
+
+void change_format_image(uint8_t** new_struct_couleur,uint8_t** couleur){
+	//uint8_t new_struct_couleur_R[8][64],new_struct_couleur_G[8][64],new_struct_couleur_B[8][64];
+
+	uint8_t temp,temp2;
+	int i,j;
+
+	for(i=0;i<4;i++)
+	{
+		for(j=0;j<(128>>4/*64>>3*/);j++)
+		{
+			switch(j){
+			case 0 :
+			case 2 :
+			case 4 :
+			case 6 :
+				temp  = (j>>1)<<3;
+				temp2 = j<<3;
+				new_struct_couleur[i][temp2]   = couleur[4+i][temp  ]; new_struct_couleur[i+4][temp2  ] = couleur[12+i][temp  ];
+				new_struct_couleur[i][temp2+1] = couleur[4+i][temp+1]; new_struct_couleur[i+4][temp2+1] = couleur[12+i][temp+1];
+				new_struct_couleur[i][temp2+2] = couleur[4+i][temp+2]; new_struct_couleur[i+4][temp2+2] = couleur[12+i][temp+2];
+				new_struct_couleur[i][temp2+3] = couleur[4+i][temp+3]; new_struct_couleur[i+4][temp2+3] = couleur[12+i][temp+3];
+				new_struct_couleur[i][temp2+4] = couleur[4+i][temp+4]; new_struct_couleur[i+4][temp2+4] = couleur[12+i][temp+4];
+				new_struct_couleur[i][temp2+5] = couleur[4+i][temp+5]; new_struct_couleur[i+4][temp2+5] = couleur[12+i][temp+5];
+				new_struct_couleur[i][temp2+6] = couleur[4+i][temp+6]; new_struct_couleur[i+4][temp2+6] = couleur[12+i][temp+6];
+				new_struct_couleur[i][temp2+7] = couleur[4+i][temp+7]; new_struct_couleur[i+4][temp2+7] = couleur[12+i][temp+7]; break;
+			case 1 :
+			case 3 :
+			case 5 :
+			case 7 :
+				temp  = (j>>1)<<3;
+				temp2 = j<<3;
+				new_struct_couleur[i][temp2]   = couleur[0+i][temp  ]; new_struct_couleur[i+4][temp2  ] = couleur[8+i][temp+0];
+				new_struct_couleur[i][temp2+1] = couleur[0+i][temp+1]; new_struct_couleur[i+4][temp2+1] = couleur[8+i][temp+1];
+				new_struct_couleur[i][temp2+2] = couleur[0+i][temp+2]; new_struct_couleur[i+4][temp2+2] = couleur[8+i][temp+2];
+				new_struct_couleur[i][temp2+3] = couleur[0+i][temp+3]; new_struct_couleur[i+4][temp2+3] = couleur[8+i][temp+3];
+				new_struct_couleur[i][temp2+4] = couleur[0+i][temp+4]; new_struct_couleur[i+4][temp2+4] = couleur[8+i][temp+4];
+				new_struct_couleur[i][temp2+5] = couleur[0+i][temp+5]; new_struct_couleur[i+4][temp2+5] = couleur[8+i][temp+5];
+				new_struct_couleur[i][temp2+6] = couleur[0+i][temp+6]; new_struct_couleur[i+4][temp2+6] = couleur[8+i][temp+6];
+				new_struct_couleur[i][temp2+7] = couleur[0+i][temp+7]; new_struct_couleur[i+4][temp2+7] = couleur[8+i][temp+7]; break;
+			}
+		}
+	}
+}

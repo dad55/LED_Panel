@@ -1,0 +1,124 @@
+22:05:22 **** Incremental Build of configuration Debug for project LED_panel_program ****
+Info: Internal Builder is used for build
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32F407ZGTx -DSTM32F4 -DSTM32 -DDEBUG -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx "-IC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\board_perso_stm32_stdperiph_lib" -IC:/Users/David/Documents/Projet_LED_panel_ENFOIROS/Program/LED_panel_program/inc "-IC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\board_perso_stm32_stdperiph_lib\\CMSIS\\core" "-IC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\board_perso_stm32_stdperiph_lib\\CMSIS\\device" "-IC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\board_perso_stm32_stdperiph_lib\\StdPeriph_Driver\\inc" -IC:/Users/David/Documents/Projet_LED_panel_ENFOIROS/Program/LED_panel_program/TM -IC:/Users/David/Documents/Projet_LED_panel_ENFOIROS/Program/LED_panel_program/TM/fatfs -IC:/Users/David/Documents/Projet_LED_panel_ENFOIROS/Program/LED_panel_program/TM/fatfs/drivers -IC:/Users/David/Documents/Projet_LED_panel_ENFOIROS/Program/LED_panel_program/TM/fatfs/option -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -o "src\\main.o" "..\\src\\main.c" 
+..\src\main.c: In function 'main':
+..\src\main.c:134:15: warning: passing argument 1 of 'load_frame' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+    load_frame(frame,new_struct_couleur_R,new_struct_couleur_G,new_struct_couleur_B);
+               ^
+..\src\main.c:48:5: note: expected 'uint16_t * {aka short unsigned int *}' but argument is of type 'volatile uint16_t * {aka volatile short unsigned int *}'
+ int load_frame(uint16_t *frame,uint8_t (*rouge)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64],uint8_t (*vert)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64],uint8_t (*bleu)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64]);
+     ^
+..\src\main.c: In function 'change_format_image':
+..\src\main.c:156:38: warning: variable 'num_panneau_colonne' set but not used [-Wunused-but-set-variable]
+  int num_panneau, num_panneau_ligne, num_panneau_colonne;
+                                      ^
+..\src\main.c: In function 'load_frame':
+..\src\main.c:260:45: warning: unused variable 'b_clk' [-Wunused-variable]
+  uint8_t b_R1,b_R2,b_G1,b_G2,b_B1,b_B2,b_oe,b_clk,b_lat,b_A,b_B;
+                                             ^
+..\src\main.c: In function 'string2frame':
+..\src\main.c:340:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'A' : letter_matrix = A; break;
+                            ^
+..\src\main.c:341:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'B' : letter_matrix = B; break;
+                            ^
+..\src\main.c:342:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'C' : letter_matrix = C; break;
+                            ^
+..\src\main.c:343:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'D' : letter_matrix = D; break;
+                            ^
+..\src\main.c:344:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'E' : letter_matrix = E; break;
+                            ^
+..\src\main.c:345:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'F' : letter_matrix = F; break;
+                            ^
+..\src\main.c:346:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'G' : letter_matrix = G; break;
+                            ^
+..\src\main.c:347:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'H' : letter_matrix = H; break;
+                            ^
+..\src\main.c:348:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'I' : letter_matrix = I; break;
+                            ^
+..\src\main.c:349:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'J' : letter_matrix = J; break;
+                            ^
+..\src\main.c:350:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'K' : letter_matrix = K; break;
+                            ^
+..\src\main.c:351:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'L' : letter_matrix = L; break;
+                            ^
+..\src\main.c:352:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'M' : letter_matrix = M; break;
+                            ^
+..\src\main.c:353:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'N' : letter_matrix = N; break;
+                            ^
+..\src\main.c:354:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'O' : letter_matrix = O; break;
+                            ^
+..\src\main.c:355:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'P' : letter_matrix = P; break;
+                            ^
+..\src\main.c:356:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'Q' : letter_matrix = Q; break;
+                            ^
+..\src\main.c:357:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'R' : letter_matrix = R; break;
+                            ^
+..\src\main.c:358:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'S' : letter_matrix = S; break;
+                            ^
+..\src\main.c:359:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'T' : letter_matrix = T; break;
+                            ^
+..\src\main.c:360:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'U' : letter_matrix = U; break;
+                            ^
+..\src\main.c:361:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'V' : letter_matrix = V; break;
+                            ^
+..\src\main.c:362:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'W' : letter_matrix = W; break;
+                            ^
+..\src\main.c:363:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'X' : letter_matrix = X; break;
+                            ^
+..\src\main.c:364:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'Y' : letter_matrix = Y; break;
+                            ^
+..\src\main.c:365:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case 'Z' : letter_matrix = Z; break;
+                            ^
+..\src\main.c:366:28: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-array-qualifiers]
+   case ' ' : letter_matrix = espace; break;
+                            ^
+..\src\main.c: In function 'initAllPeriph':
+..\src\main.c:475:20: warning: passing argument 1 of 'load_frame' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  size = load_frame(frame,new_struct_couleur_R,new_struct_couleur_G,new_struct_couleur_B);
+                    ^
+..\src\main.c:258:5: note: expected 'uint16_t * {aka short unsigned int *}' but argument is of type 'volatile uint16_t * {aka volatile short unsigned int *}'
+ int load_frame(uint16_t *frame,uint8_t (*rouge)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64],uint8_t (*vert)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64],uint8_t (*bleu)[NB_PANNEAU_HAUTEUR*NB_PANNEAU_LARGEUR*64]){
+     ^
+..\src\main.c:467:10: warning: unused variable 'k' [-Wunused-variable]
+  int i,j,k;
+          ^
+..\src\main.c:467:8: warning: unused variable 'j' [-Wunused-variable]
+  int i,j,k;
+        ^
+..\src\main.c:467:6: warning: unused variable 'i' [-Wunused-variable]
+  int i,j,k;
+      ^
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 "-LC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\board_perso_stm32_stdperiph_lib\\Debug" "-TC:\\Users\\David\\Documents\\Projet_LED_panel_ENFOIROS\\Program\\LED_panel_program\\LinkerScript.ld" -Wl,-Map=output.map -Wl,--gc-sections -lm -o LED_panel_program.elf "TM\\fatfs\\diskio.o" "TM\\fatfs\\drivers\\fatfs_sd.o" "TM\\fatfs\\drivers\\fatfs_sd_sdio.o" "TM\\fatfs\\drivers\\fatfs_spi_flash.o" "TM\\fatfs\\drivers\\fatfs_usb.o" "TM\\fatfs\\ff.o" "TM\\fatfs\\option\\ccsbcs.o" "TM\\fatfs\\option\\syscall.o" "TM\\fatfs\\option\\unicode.o" "TM\\tm_stm32f4_delay.o" "TM\\tm_stm32f4_fatfs.o" "TM\\tm_stm32f4_gpio.o" "TM\\tm_stm32f4_spi.o" "TM\\tm_stm32f4_timer_properties.o" "src\\main.o" "src\\syscalls.o" "src\\system_stm32f4xx.o" "startup\\startup_stm32.o" -lboard_perso_stm32_stdperiph_lib 
+arm-none-eabi-objcopy -O binary LED_panel_program.elf LED_panel_program.bin 
+ arm-none-eabi-size LED_panel_program.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48876	   2708	  89624	 141208	  22798	LED_panel_program.elf
+
+22:05:23 Build Finished (took 1s.35ms)
+

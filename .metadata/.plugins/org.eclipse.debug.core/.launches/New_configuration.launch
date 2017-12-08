@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.ui.externaltools.ProgramLaunchConfigurationType">
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="C:\Users\David\Documents\Projet_LED_panel_ENFOIROS\STM32_ToolChain\openocd-0.7.0\bin-x64\openocd-x64-0.7.0.exe"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="-f &quot;target\stm32f4x_stlink.cfg&quot;"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/LED_panel_program/Debug}"/>
+</launchConfiguration>
